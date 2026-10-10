@@ -4,6 +4,7 @@ extends Control
 var score = 0
 var time_left = 15
 var playing = false
+var high_score = 0
 
 var score_label: Label
 var timer_label: Label
@@ -57,7 +58,7 @@ func _ready():
 
 func start_game():
 	score = 0
-	time_left = 20
+	time_left = 15
 	playing = true
 
 	start_button.hide()
@@ -113,8 +114,12 @@ func end_game():
 	start_button.show()
 	start_button.text = "Play Again"
 	difficulty.disabled = false
-	message_label.text = "Game Over! Final score: " + str(score)
-
+	
+	if score > high_score:
+		high_score = score
+		message_label.text = "New High Score: " + str(score)
+	else:
+		message_label.text = "Final Score: " + str(score) + " | Best: " + str(high_score)
 
 func update_labels():
 	score_label.text = "Score: " + str(score)
